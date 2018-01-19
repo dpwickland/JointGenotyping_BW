@@ -138,7 +138,7 @@ source /opt/modules/default/init/bash
 
 aprun -n 2 /projects/sciteam/baib/builds/Scheduler/scheduler.x ${OUT_DIR}/aprun_joblists/CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_joblist_for_aprun /bin/bash > ${OUT_DIR}/logs/CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_log_aprun.txt
 
-sed 's/chr//g' ${OUT_DIR}/final_VCF/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}/${BATCH_SIZE}_${SUBSAMPLE}_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_all_exome_intervals_${1}.vcf > ${DELIVERY}/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}/${BATCH_SIZE}_${SUBSAMPLE}_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_all_exome_intervals_${1}.vcf
+grep -v ^## ${OUT_DIR}/final_VCF/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}/${BATCH_SIZE}_${SUBSAMPLE}_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_all_exome_intervals_${1}.vcf | sed 's/chr//g' > ${DELIVERY}/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}/${BATCH_SIZE}_${SUBSAMPLE}_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_all_exome_intervals_${1}.vcf
 
 chmod g+rx ${DELIVERY}/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}/${BATCH_SIZE}_${SUBSAMPLE}_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_all_exome_intervals_${1}.vcf" > ${OUT_DIR}/run_aprun_CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}
 
