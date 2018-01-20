@@ -126,7 +126,7 @@ echo "#!/bin/sh
 
 #PBS -A baib
 #PBS -l nodes=1:ppn=2:xe
-#PBS -l walltime=10:00:00
+#PBS -l walltime=4:00:00
 #PBS -N CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_${1}_${BATCH_SIZE}_${SUBSAMPLE}
 #PBS -o ${OUT_DIR}/logs/CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}.stdout
 #PBS -e ${OUT_DIR}/logs/CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}.stderr
