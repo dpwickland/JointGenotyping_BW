@@ -18,7 +18,7 @@ bash Generate_Subsamples_BW.sh 1000 Subsample1_BWA ./Randomized_Subsamplings ./G
 ## Step 2: Combine gVCF files (CombineGVCFs_BW.sh)
 **CombineGVCFs_BW.sh** uses GATK's CombineGVCFs command to combine the randomly selected gVCFs from the previous step into files containing 100 gVCFs each. CombineGVCFs drastically reduces the number of individual files input to joint genotyping. On Blue Waters, 4 CombineGVCFs commands with a Java heap size of 15g are assigned to each node. Walltime is approximately 5 hours (see scalability analysis).
 
-The syntax is  
+The syntax to run **Combine_GVCFs_BW.sh** is  
 *bash CombineGVCFs_BW.sh \<which reference assembly to use: hg19 or hg38> \<directory containing the samples_list directory>*
 
 For example:
@@ -32,7 +32,7 @@ bash CombineGVCFs_BW.sh hg19 ./Randomized_Subsamplings/Subsample1_BWA
 
 Following the completion of all GenotypeGVCFs commands, GATK's CatVariants command is used to combine VCFs from each interval into a single VCF containing variants from all intervals.
 
-The syntax to run GenotypeGVCFs and CatVariants is  
+The syntax to run **GenotypeGVCFs and CatVariants is  
 *bash CombineGVCFs_BW.sh \<which reference assembly to use: hg19 or hg38> \<title to use for output directory; typically any special GenotypeGVCFs parameters used> \<path to combined GVCFs> \<path to Delivery directory for final VCF output>*
 
 For example:
