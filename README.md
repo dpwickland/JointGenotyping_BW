@@ -6,7 +6,7 @@ This workflow performs joint genotyping using GATK on very large numbers of whol
 ## Step 1: Randomly select user-specified number of gVCFs from cohort (Generate_Subsamples_BW.sh)
 gVCFs must first be combined into groups because the joint genotyping step can handle no more than a few hundred to perhaps a few thousand files. **Generate_Subsamples_BW.sh** creates a master list of all gVCFs contained within the paths specified by the user. It then splits the master list into smaller files each listing 100 randomly selected gVCFs. The number of gVCFs to select randomly from the master list is determined by an input parameter to the script.
 
-The syntax is __bash Generate_Subsamples_BW.sh <number of gVCFs to select randomly from master list> <subsample number and aligner used> <path to directory for output> <paths to gVCFs>__
+The syntax is *bash Generate_Subsamples_BW.sh <number of gVCFs to select randomly from master list> <subsample number and aligner used> <path to directory for output> <paths to gVCFs>*
 
 For example:
 
