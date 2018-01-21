@@ -32,7 +32,7 @@ bash CombineGVCFs_BW.sh hg19 ./Randomized_Subsamplings/Subsample1_BWA
 
 Following the completion of all GenotypeGVCFs commands, GATK's CatVariants command is used to combine VCFs from each interval into a single VCF containing variants from all intervals.
 
-The syntax to run GenotypeGVCFs and CatVariants is  
+The syntax to run **GenotypeGVCFs_CatVariants_BW.sh** is  
 *bash CombineGVCFs_BW.sh \<which reference assembly to use: hg19 or hg38> \<title to use for output directory; typically any special GenotypeGVCFs parameters used> \<path to combined GVCFs> \<path to Delivery directory for final VCF output>*
 
 For example:
