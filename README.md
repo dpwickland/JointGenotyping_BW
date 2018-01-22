@@ -43,4 +43,9 @@ bash GenotypeGVCFs_CatVariants_BW.sh hg19 defaults ./Randomized_Subsamplings/Sub
 
 
 ## Scalability analysis 
-![alt tag](./Scalability_commands.png "Scalability analysis")
+
+### Walltime
+![alt tag](./Plots/Scalability_WallTime.png "Walltime")
+
+### Node hours
+![alt tag](./Plots/Scalability_NodeHrs.png "Node hours")
