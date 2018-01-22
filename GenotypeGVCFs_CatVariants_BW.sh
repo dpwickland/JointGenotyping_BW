@@ -1,12 +1,7 @@
 #!/bin/bash
 
 ##USAGE
-#bash GenotypeGVCFs_CatVariants_BW.sh <reference assembly to use: hg19 or hg38) <GVCF setting> <path to combined GVCFs> <path to Delivery directory for final VCF outut>
-
-##EXAMPLE COMMAND 
-##bash GenotypeGVCFs_CatVariants_BW.sh hg19 defaults /mnt/c/scratch/sciteam/jacobrh/purge_exempt/ADSP_VarCallResults/ADSP_JointGenotyping/hg19/Novoalign-GATK_HC_defaults/Randomized_Subsamplings/BatchSize500/Subsample4_Novoalign/combined_GVCFs /scratch/sciteam/jacobrh/purge_exempt/ADSP_VarCallResults/ADSP_JointGenotyping/hg19/Novoalign-GATK_HC_defaults/GenotypeGVCFs_Delivery
-
-##bash GenotypeGVCFs_CatVariants_BW.sh hg38 defaults /mnt/c/scratch/sciteam/jacobrh/purge_exempt/ADSP_VarCallResults/ADSP_JointGenotyping/hg38/BWA-GATK_HC_defaults/Randomized_Subsamplings/BatchSize500/Subsample4_BWA/combined_GVCFs /scratch/sciteam/jacobrh/purge_exempt/ADSP_VarCallResults/ADSP_JointGenotyping/hg38/BWA-GATK_HC_defaults/GenotypeGVCFs_Delivery
+#bash CombineGVCFs_BW.sh <which reference assembly to use: hg19 or hg38> <title to use for output directory; typically any special GenotypeGVCFs parameters used> <path to combined GVCFs> <path to Delivery directory for final VCF output>
 
 ###SET PATHS AND ASSIGN VARIABLES
 JAVADIR=/opt/java/jdk1.8.0_51/bin
@@ -80,11 +75,11 @@ for bed in ${PATH_TO_BEDS}/*.bed
 		echo "${JAVADIR}/java -Xmx10g -Djava.io.tmpdir=${OUT_DIR}/tmp -jar ${GATK_PATH}/GenomeAnalysisTK.jar -T GenotypeGVCFs -R ${REF} ${GVCFS_LIST} -o ${OUT_DIR}/interval_VCFs/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}/GenotypeGVCFs_${INTERVAL}.vcf -L $bed --disable_auto_index_creation_and_locking_when_reading_rods"  >> ${OUT_DIR}/commands/GenotypeGVCFs/${GENOTYPEGVCFS_SETTING}/${INTERVAL}.sh
 	done
 
-###CREATE JOBLIST FOR SCHEDULER 
+###CREATE JOBLIST FOR BLUE WATERS ANISIMOV SCHEDULER 
 GenotypeGVCFs_commands=0
 for file in ${OUT_DIR}/commands/GenotypeGVCFs/${GENOTYPEGVCFS_SETTING}/interval*.sh; do GenotypeGVCFs_commands=$((${GenotypeGVCFs_commands} + 1)); echo ${OUT_DIR}/commands/GenotypeGVCFs/${GENOTYPEGVCFS_SETTING}/ `basename $file` >> ${OUT_DIR}/aprun_joblists/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_joblist_for_aprun;done;
 
-###CREATE APRUN SCRIPT FOR GENOTYPEGVCFS
+###CREATE APRUN SCRIPT FOR BLUE WATERS ANISIMOV SCHEDULER
 echo "#!/bin/sh
 
 #PBS -A baib
@@ -118,10 +113,10 @@ done
 chmod g+rx '$OUT_DIR'
 chmod g+rx '${OUT_DIR}'/samples_lists' >> ${OUT_DIR}/commands/CatVariants/CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}.sh
 
-###CREATE JOBLIST FOR SCHEDULER 
+###CREATE JOBLIST FOR BLUE WATERS ANISIMOV SCHEDULER 
 echo "${OUT_DIR}/commands/CatVariants/ CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}.sh" >> ${OUT_DIR}/aprun_joblists/CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_joblist_for_aprun
 
-###CREATE APRUN SCRIPT FOR CATVARIANTS
+###CREATE APRUN SCRIPT BLUE WATERS ANISIMOV SCHEDULER
 echo "#!/bin/sh
 
 #PBS -A baib
