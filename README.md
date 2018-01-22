@@ -28,7 +28,7 @@ bash CombineGVCFs_BW.sh hg19 ./Randomized_Subsamplings/Subsample1_BWA
 ```
 
 ## Step 3: Jointly genotype samples (GenotypeGVCFs_CatVariants_BW.sh)
-**GenotypeGVCFs_CatVariants_BW.sh** runs the GenotypeGVCFs command on 99 sets of 2000 exonic intervals each to facilitate parallel processing. The output is 1 VCF for each 2000-interval set. On Blue Waters, 6 GenotypeGVCFs commands (each covering one interval set) with a Java heap size of 10g are assigned to each node, for a total of 17 nodes. Walltime increases linearly with batch size; 500 samples takes 30 minutes, whereas 5000 samples takes 6 hours (see scalability analysis below).
+**GenotypeGVCFs_CatVariants_BW.sh** runs the GenotypeGVCFs command on 99 sets of 2000 exonic intervals each to facilitate parallel processing. The output is 1 VCF for each 2000-interval set. On Blue Waters, 6 GenotypeGVCFs commands (each covering one interval set) with a Java heap size of 10g are assigned to each node, for a total of 17 nodes. Walltime increases linearly with batch size; 500 samples takes 45 minutes and uses 79 node hours , whereas 5000 samples takes 6 hours and uses 1050 node hours (see scalability analysis below).
 
 Following the completion of all GenotypeGVCFs commands, GATK's CatVariants command is used to combine VCFs from each interval into a single VCF containing variants from all intervals.
 
