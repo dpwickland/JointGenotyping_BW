@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##USAGE
-#bash Generate_Subsamples_BW.sh <number of GVCFs to select randomly from master list> <subsample number followed by underscore and aligner used> <path to root directory for output>  <paths to GVCFs>
+#bash Generate_Subsamples_BW.sh <number of GVCFs to select randomly from all GVCFs> <subsample number followed by underscore and aligner used> <path to root directory for output>  <paths to GVCFs>
 
 ###ASSIGN VARIABLES
 i=1
