@@ -47,14 +47,14 @@ echo "#!/bin/sh
 #PBS -e ${OUT_DIR}/logs/CombineGVCFs.stderr
 #PBS -m ae
 #PBS -M dpwickland@gmail.com
-#PBS -q high
+#PBS -q normal
 
-#export APRUN_BALANCED_INJECTION=32
-export APRUN_BALANCED_INJECTION=32
+#export APRUN_BALANCED_INJECTION=64
+export APRUN_BALANCED_INJECTION=64
 
 source /opt/modules/default/init/bash
-#export APRUN_BALANCED_INJECTION=32
-export APRUN_BALANCED_INJECTION=32
+#export APRUN_BALANCED_INJECTION=64
+export APRUN_BALANCED_INJECTION=64
 
 aprun -n $n_for_aprun -N 4 -d 8 /projects/sciteam/baib/builds/Scheduler/scheduler.x ${OUT_DIR}/aprun_joblists/CombineGVCFs_joblist_for_aprun /bin/bash > ${OUT_DIR}/logs/CombineGVCFs_log_aprun.txt" > ${OUT_DIR}/run_aprun_CombineGVCFs
 
