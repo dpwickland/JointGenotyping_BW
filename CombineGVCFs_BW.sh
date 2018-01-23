@@ -37,21 +37,22 @@ NODES=$(((${CombineGVCFs_commands} + 4)/4))
 n_for_aprun=$((${CombineGVCFs_commands} + 1))
 
 ###CREATE APRUN SCRIPT FOR BLUE WATERS ANISIMOV SCHEDULER
-echo "#!/bin/sh
+echo "#!/bin/bash
 
 #PBS -A baib
 #PBS -l nodes=${NODES}:ppn=4:xe
 #PBS -l walltime=10:00:00
 #PBS -N CombineGVCFs_${1}_`basename $(dirname ${OUT_DIR})`_`basename ${OUT_DIR}`
-#PBS -o ${OUT_DIR}/logs/CombineGVCFs.stdout
-#PBS -e ${OUT_DIR}/logs/CombineGVCFs.stderr
+#PBS -o logs/CombineGVCFs.stdout
+#PBS -e logs/CombineGVCFs.stderr
 #PBS -m ae
 #PBS -M dpwickland@gmail.com
 #PBS -q normal
 
 source /opt/modules/default/init/bash
+cd $PBS_O_WORKDIR
 
-aprun -n $n_for_aprun /projects/sciteam/baib/builds/Scheduler/scheduler.x ${OUT_DIR}/aprun_joblists/CombineGVCFs_joblist_for_aprun /bin/bash > ${OUT_DIR}/logs/CombineGVCFs_log_aprun.txt" > ${OUT_DIR}/run_aprun_CombineGVCFs
+aprun -n $n_for_aprun -N 4 -d 8 /projects/sciteam/baib/builds/Scheduler/scheduler.x aprun_joblists/CombineGVCFs_joblist_for_aprun /bin/bash > logs/CombineGVCFs_log_aprun.txt" > ${OUT_DIR}/run_aprun_CombineGVCFs
 
 ################ BEGIN! ################
 
