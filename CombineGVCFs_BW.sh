@@ -49,6 +49,9 @@ echo "#!/bin/sh
 #PBS -M dpwickland@gmail.com
 #PBS -q high
 
+#export APRUN_BALANCED_INJECTION=64
+export APRUN_BALANCED_INJECTION=64
+
 source /opt/modules/default/init/bash
 #export APRUN_BALANCED_INJECTION=64
 export APRUN_BALANCED_INJECTION=64
