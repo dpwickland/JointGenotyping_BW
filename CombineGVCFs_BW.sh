@@ -41,7 +41,7 @@ echo "#!/bin/sh
 
 #PBS -A baib
 #PBS -l nodes=${NODES}:ppn=4:xe
-#PBS -l walltime=10:00:00
+#PBS -l walltime=7:00:00
 #PBS -N CombineGVCFs_${1}_`basename $(dirname ${OUT_DIR})`_`basename ${OUT_DIR}`
 #PBS -o ${OUT_DIR}/logs/CombineGVCFs.stdout
 #PBS -e ${OUT_DIR}/logs/CombineGVCFs.stderr
