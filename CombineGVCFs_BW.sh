@@ -47,7 +47,7 @@ echo "#!/bin/sh
 #PBS -e ${OUT_DIR}/logs/CombineGVCFs.stderr
 #PBS -m ae
 #PBS -M dpwickland@gmail.com
-#PBS -q high
+#PBS -q normal
 
 source /opt/modules/default/init/bash
 
