@@ -56,6 +56,7 @@ aprun -n $n_for_aprun -N 4 -d 8 /projects/sciteam/baib/builds/Scheduler/schedule
 
 ################ BEGIN! ################
 
+cd ${OUT_DIR}
 qsub ${OUT_DIR}/run_aprun_CombineGVCFs
 
 
