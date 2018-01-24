@@ -37,7 +37,7 @@ NODES=$(((${CombineGVCFs_commands} + 4)/4))
 n_for_aprun=$((${CombineGVCFs_commands} + 1))
 
 ###CREATE APRUN SCRIPT FOR BLUE WATERS ANISIMOV SCHEDULER
-echo "#!/bin/sh
+echo "#!/bin/bash
 
 #PBS -A baib
 #PBS -l nodes=${NODES}:ppn=32:xe
