@@ -37,7 +37,7 @@ NODES=$(((${CombineGVCFs_commands} + 4)/4))
 n_for_aprun=$((${CombineGVCFs_commands} + 1))
 
 ###CREATE APRUN SCRIPT FOR BLUE WATERS ANISIMOV SCHEDULER
-echo "#!/bin/bash
+echo "#!/bin/sh
 
 #PBS -A baib
 #PBS -l nodes=${NODES}:ppn=32:xe
@@ -49,20 +49,15 @@ echo "#!/bin/bash
 #PBS -M dpwickland@gmail.com
 #PBS -q normal
 
+#export APRUN_BALANCED_INJECTION=64
+export APRUN_BALANCED_INJECTION=64
+
 source /opt/modules/default/init/bash
+#export APRUN_BALANCED_INJECTION=64
+export APRUN_BALANCED_INJECTION=64
 
 aprun -n $n_for_aprun -N 4 -d 8 /projects/sciteam/baib/builds/Scheduler/scheduler.x ${OUT_DIR}/aprun_joblists/CombineGVCFs_joblist_for_aprun /bin/bash > ${OUT_DIR}/logs/CombineGVCFs_log_aprun.txt" > ${OUT_DIR}/run_aprun_CombineGVCFs
 
 ################ BEGIN! ################
 
 qsub ${OUT_DIR}/run_aprun_CombineGVCFs
-
-
-
-
-
-
-
-
-
-
