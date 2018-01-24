@@ -80,10 +80,10 @@ GenotypeGVCFs_commands=0
 for file in ${OUT_DIR}/commands/GenotypeGVCFs/${GENOTYPEGVCFS_SETTING}/interval*.sh; do GenotypeGVCFs_commands=$((${GenotypeGVCFs_commands} + 1)); echo ${OUT_DIR}/commands/GenotypeGVCFs/${GENOTYPEGVCFS_SETTING}/ `basename $file` >> ${OUT_DIR}/aprun_joblists/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_joblist_for_aprun;done;
 
 ###CREATE APRUN SCRIPT FOR BLUE WATERS ANISIMOV SCHEDULER
-echo "#!/bin/sh
+echo "#!/bin/bash
 
 #PBS -A baib
-#PBS -l nodes=17:ppn=6:xe
+#PBS -l nodes=17:ppn=32:xe
 #PBS -l walltime=12:00:00
 #PBS -N GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_${1}_${BATCH_SIZE}_${SUBSAMPLE}
 #PBS -o ${OUT_DIR}/logs/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}.stdout
@@ -94,7 +94,7 @@ echo "#!/bin/sh
 
 source /opt/modules/default/init/bash
 
-aprun -n 102 /projects/sciteam/baib/builds/Scheduler/scheduler.x ${OUT_DIR}/aprun_joblists/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_joblist_for_aprun /bin/bash > ${OUT_DIR}/logs/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_log_aprun.txt
+aprun -n 102 -N 6 -d 5 /projects/sciteam/baib/builds/Scheduler/scheduler.x ${OUT_DIR}/aprun_joblists/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_joblist_for_aprun /bin/bash > ${OUT_DIR}/logs/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_log_aprun.txt
 
 qsub ${OUT_DIR}/run_aprun_CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}" > ${OUT_DIR}/run_aprun_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}
 
@@ -117,10 +117,10 @@ chmod g+rx '${OUT_DIR}'/samples_lists' >> ${OUT_DIR}/commands/CatVariants/CatVar
 echo "${OUT_DIR}/commands/CatVariants/ CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}.sh" >> ${OUT_DIR}/aprun_joblists/CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_joblist_for_aprun
 
 ###CREATE APRUN SCRIPT BLUE WATERS ANISIMOV SCHEDULER
-echo "#!/bin/sh
+echo "#!/bin/bash
 
 #PBS -A baib
-#PBS -l nodes=1:ppn=2:xe
+#PBS -l nodes=1:ppn=32:xe
 #PBS -l walltime=4:00:00
 #PBS -N CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_${1}_${BATCH_SIZE}_${SUBSAMPLE}
 #PBS -o ${OUT_DIR}/logs/CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}.stdout
