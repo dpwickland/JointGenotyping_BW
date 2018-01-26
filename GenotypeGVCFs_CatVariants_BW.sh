@@ -84,7 +84,7 @@ echo "#!/bin/bash
 
 #PBS -A baib
 #PBS -l nodes=17:ppn=32:xe
-#PBS -l walltime=12:00:00
+#PBS -l walltime=7:00:00
 #PBS -N GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_${1}_${BATCH_SIZE}_${SUBSAMPLE}
 #PBS -o ${OUT_DIR}/logs/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}.stdout
 #PBS -e ${OUT_DIR}/logs/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}.stderr
