@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##USAGE
-#bash CombineGVCFs_BW.sh <which reference assembly to use: hg19 or hg38> <title to use for output directory; typically any special GenotypeGVCFs parameters used> <path to combined GVCFs> <path to Delivery directory for final VCF output>
+#bash GenotypeGVCFs_BW.sh <which reference assembly to use: hg19 or hg38> <title to use for output directory; typically any special GenotypeGVCFs parameters used> <path to combined GVCFs> <path to Delivery directory for final VCF output>
 
 ###SET PATHS AND ASSIGN VARIABLES
 JAVADIR=/opt/java/jdk1.8.0_51/bin
