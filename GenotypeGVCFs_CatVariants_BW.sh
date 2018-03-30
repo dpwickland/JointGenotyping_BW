@@ -2,6 +2,7 @@
 
 ##USAGE
 #bash GenotypeGVCFs_BW.sh <which reference assembly to use: hg19 or hg38> <title to use for output directory; typically any special GenotypeGVCFs parameters used> <path to combined GVCFs> <path to Delivery directory for final VCF output>
+#bash GenotypeGVCFs_CatVariants_BW.sh hg38 defaults /mnt/c/scratch/sciteam/jacobrh/purge_exempt/ADSP_VarCallResults/ADSP_JointGenotyping/hg38/BWA-GATK_HC_defaults/Randomized_Subsamplings/BatchSize50/Subsample1_BWA/combined_GVCFs /scratch/sciteam/jacobrh/purge_exempt/ADSP_VarCallResults/ADSP_JointGenotyping/hg38/BWA-GATK_HC_defaults/GenotypeGVCFs_Delivery
 
 ###SET PATHS AND ASSIGN VARIABLES
 JAVADIR=/opt/java/jdk1.8.0_51/bin
