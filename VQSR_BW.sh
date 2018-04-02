@@ -74,7 +74,7 @@ echo "#!/bin/bash
 #PBS -e ${BATCH_DIR}/VQSR_`basename ${OUT_DIR}`.stderr
 #PBS -m ae
 #PBS -M dpwickland@gmail.com
-#PBS -q high
+#PBS -q normal
 
 source /opt/modules/default/init/bash
 
