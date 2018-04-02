@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ##USAGE
-#bash GenotypeGVCFs_BW.sh <which reference assembly to use: hg19 or hg38> <title to use for output directory; typically any special GenotypeGVCFs parameters used> <path to combined GVCFs> <path to Delivery directory for final VCF output>
-#bash GenotypeGVCFs_CatVariants_BW.sh hg38 defaults /mnt/c/scratch/sciteam/jacobrh/purge_exempt/ADSP_VarCallResults/ADSP_JointGenotyping/hg38/BWA-GATK_HC_defaults/Randomized_Subsamplings/BatchSize50/Subsample1_BWA/combined_GVCFs /scratch/sciteam/jacobrh/purge_exempt/ADSP_VarCallResults/ADSP_JointGenotyping/hg38/BWA-GATK_HC_defaults/GenotypeGVCFs_Delivery
+#bash GenotypeGVCFs_BW.sh <which reference assembly to use: hg19 or hg38> <title to use for output directory; typically any special GenotypeGVCFs parameters used> <path to combined GVCFs>
+#bash GenotypeGVCFs_CatVariants_BW.sh hg38 defaults /mnt/c/scratch/sciteam/jacobrh/purge_exempt/ADSP_VarCallResults/ADSP_JointGenotyping/hg38/BWA-GATK_HC_defaults/Randomized_Subsamplings/BatchSize50/Subsample1_BWA/combined_GVCFs 
 
 ###SET PATHS AND ASSIGN VARIABLES
 JAVADIR=/opt/java/jdk1.8.0_51/bin
@@ -23,8 +23,6 @@ for argument in "$@";
                         then GENOTYPEGVCFS_SETTING=$argument
                 elif [ "$i" == 3 ];
                         then PATH_TO_COMBINED_GVCFS=$argument
-		elif [ "$i" == 4 ];
-			then DELIVERY=$argument
                 fi
         i=$((i+1))
         done;
@@ -48,14 +46,6 @@ fi
 
 if [ ! -d ${OUT_DIR}/final_VCF ]; 
 	then mkdir ${OUT_DIR}/final_VCF 
-fi
-
-if [ ! -d ${DELIVERY} ]; 
-	then mkdir ${DELIVERY} 
-fi
-
-if [ ! -d ${DELIVERY}/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING} ]; 
-	then mkdir ${DELIVERY}/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING} 
 fi
 
 mkdir ${OUT_DIR}/commands/GenotypeGVCFs/${GENOTYPEGVCFS_SETTING}
@@ -133,10 +123,6 @@ echo "#!/bin/bash
 source /opt/modules/default/init/bash
 
 aprun -n 2 /projects/sciteam/baib/builds/Scheduler/scheduler.x ${OUT_DIR}/aprun_joblists/CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_joblist_for_aprun /bin/bash > ${OUT_DIR}/logs/CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_log_aprun.txt
-
-grep -v ^## ${OUT_DIR}/final_VCF/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}/${BATCH_SIZE}_${SUBSAMPLE}_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_all_exome_intervals_${1}.vcf | sed 's/chr//g' > ${DELIVERY}/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}/${BATCH_SIZE}_${SUBSAMPLE}_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_all_exome_intervals_${1}.vcf
-
-chmod g+rx ${DELIVERY}/GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}/${BATCH_SIZE}_${SUBSAMPLE}_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_all_exome_intervals_${1}.vcf" > ${OUT_DIR}/run_aprun_CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}
 
 ################ BEGIN! ################
 
