@@ -35,7 +35,7 @@ The output of this script is 1 VCF for each 2000-interval set. On Blue Waters, 6
 Following the completion of all GenotypeGVCFs commands, GATK's CatVariants command is used to combine VCFs from each interval into a single VCF containing variants from all intervals.
 
 The syntax to run **GenotypeGVCFs_CatVariants_BW.sh** is  
-*bash CombineGVCFs_BW.sh \<reference assembly to use: hg19 or hg38> \<title to use for output directory; typically any special GenotypeGVCFs parameters used> \<path to combined GVCFs>*
+*bash CombineGVCFs_BW.sh \<reference assembly to use: hg19 or hg38> \<title to use for output directory; typically any special GenotypeGVCFs parameters used> \<path to combined GVCFs>*  
 
 For example:
 
