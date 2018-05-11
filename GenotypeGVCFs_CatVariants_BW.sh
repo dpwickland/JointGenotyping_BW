@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##USAGE
-#bash GenotypeGVCFs_BW.sh <which reference assembly to use: hg19 or hg38> <title to use for output directory; typically any special GenotypeGVCFs parameters used> <path to combined GVCFs>
+#bash GenotypeGVCFs_CatVariants_BW.sh <which reference assembly to use: hg19 or hg38> <title to use for output directory; typically any special GenotypeGVCFs parameters used> <path to combined GVCFs>
 #bash GenotypeGVCFs_CatVariants_BW.sh hg38 defaults /mnt/c/scratch/sciteam/jacobrh/purge_exempt/ADSP_VarCallResults/ADSP_JointGenotyping/hg38/BWA-GATK_HC_defaults/Randomized_Subsamplings/BatchSize50/Subsample1_BWA/combined_GVCFs 
 
 ###SET PATHS AND ASSIGN VARIABLES
@@ -122,7 +122,7 @@ echo "#!/bin/bash
 
 source /opt/modules/default/init/bash
 
-aprun -n 2 /projects/sciteam/baib/builds/Scheduler/scheduler.x ${OUT_DIR}/aprun_joblists/CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_joblist_for_aprun /bin/bash > ${OUT_DIR}/logs/CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_log_aprun.txt
+aprun -n 2 /projects/sciteam/baib/builds/Scheduler/scheduler.x ${OUT_DIR}/aprun_joblists/CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_joblist_for_aprun /bin/bash > ${OUT_DIR}/logs/CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}_log_aprun.txt" > ${OUT_DIR}/run_aprun_CatVariants_on_GenotypeGVCFs-${GENOTYPEGVCFS_SETTING}
 
 ################ BEGIN! ################
 
