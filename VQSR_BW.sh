@@ -2,7 +2,7 @@
 
 ##USAGE
 #bash VQSR_BW.sh <reference assembly: hg19 or hg38> <desired sensitivty threshold value> <GenotypeGVCFs final VCF directory (MUST QUOTE IF WILDCARDS USED)> 
-#bash VQSR_BW.sh hg19 99 "/scratch/sciteam/jacobrh/purge_exempt/ADSP_VarCallResults/ADSP_JointGenotyping/hg19/BWA-GATK_HC_defaults/Randomized_Subsamplings/BatchSize50/Subsample*_BWA/final_VCF/GenotypeGVCFs-defaults"
+#bash VQSR_BW.sh hg19 99.5 99 "/scratch/sciteam/jacobrh/purge_exempt/ADSP_VarCallResults/ADSP_JointGenotyping/hg19/BWA-GATK_HC_defaults/Randomized_Subsamplings/BatchSize50/Subsample*_BWA/final_VCF/GenotypeGVCFs-defaults"
 
 
 ###SET PATHS AND ASSIGN VARIABLES
@@ -26,8 +26,9 @@ elif [ $1 == "hg38" ];
 	MILLS=/projects/sciteam/baib/GATKbundle/Dec3_2017/Mills_and_1000G_gold_standard.indels.hg38.vcf
 fi
 
-SENSITIVITY=$2
-VCF_PATH=$3
+SNP_SENSITIVITY=$2
+INDEL_SENSITIVITY=$3
+VCF_PATH=$4
 
 ################ VQSR SECTION ################
 
@@ -45,12 +46,12 @@ for vcf in $VCF_PATH/*.vcf; do
 	###FOR SNPS###
 	echo "${JAVADIR}/java -Xmx10g -Djava.io.tmpdir=${SUBSAMPLE_DIR}/tmp -jar ${GATK_PATH}/GenomeAnalysisTK.jar -T VariantRecalibrator -R ${REF} -input $vcf -tranche 100.0 -tranche 99.9 -tranche 99.0 -tranche 90.0 -mode SNP -an QD -an MQ -an MQRankSum -an ReadPosRankSum -an FS -an SOR -an InbreedingCoeff -resource:hapmap,VCF,known=false,training=true,truth=true,prior=15.0 ${HAPMAP} -resource:omni,known=false,training=true,truth=true,prior=12.0 ${OMNI} -resource:1000G,known=false,training=true,truth=false,prior=10.0 ${G1000} -resource:dbsnp,known=true,training=false,truth=false,prior=2.0 ${DBSNP} -recalFile ${OUT_DIR}/`basename ${vcf} .vcf`_recalibrate_SNPs -tranchesFile ${OUT_DIR}/`basename ${vcf} .vcf`_tranches_SNPs -rscriptFile ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR_SNPs_only.plots.R --disable_auto_index_creation_and_locking_when_reading_rods
 	
-	${JAVADIR}/java -Xmx10g -Djava.io.tmpdir=${SUBSAMPLE_DIR}/tmp -jar ${GATK_PATH}/GenomeAnalysisTK.jar -T ApplyRecalibration -R ${REF} -input $vcf -o ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR_SNPs_only.vcf  -nt 5 -recalFile ${OUT_DIR}/`basename ${vcf} .vcf`_recalibrate_SNPs -tranchesFile ${OUT_DIR}/`basename ${vcf} .vcf`_tranches_SNPs --ts_filter_level ${SENSITIVITY} -mode SNP	
+	${JAVADIR}/java -Xmx10g -Djava.io.tmpdir=${SUBSAMPLE_DIR}/tmp -jar ${GATK_PATH}/GenomeAnalysisTK.jar -T ApplyRecalibration -R ${REF} -input $vcf -o ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR_SNPs_only.vcf  -nt 5 -recalFile ${OUT_DIR}/`basename ${vcf} .vcf`_recalibrate_SNPs -tranchesFile ${OUT_DIR}/`basename ${vcf} .vcf`_tranches_SNPs --ts_filter_level ${SNP_SENSITIVITY} -mode SNP	
 
 	###FOR INDELS###
 	${JAVADIR}/java -Xmx10g -Djava.io.tmpdir=${SUBSAMPLE_DIR}/tmp -jar ${GATK_PATH}/GenomeAnalysisTK.jar -T VariantRecalibrator -R ${REF} -input ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR_SNPs_only.vcf --maxGaussians 4 -tranche 100.0 -tranche 99.9 -tranche 99.0 -tranche 90.0 -mode INDEL -an QD -an MQRankSum -an ReadPosRankSum -an FS -an SOR -an InbreedingCoeff -resource:mills,known=false,training=true,truth=true,prior=12.0 ${MILLS} -resource:dbsnp,known=true,training=false,truth=false,prior=2.0 ${DBSNP} -recalFile ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR_SNPs_recalibrate_INDELs -tranchesFile ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR_SNPs_tranches_INDELs --disable_auto_index_creation_and_locking_when_reading_rods
 	
-	${JAVADIR}/java -Xmx10g -Djava.io.tmpdir=${SUBSAMPLE_DIR}/tmp -jar ${GATK_PATH}/GenomeAnalysisTK.jar -T ApplyRecalibration -R ${REF} -input ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR_SNPs_only.vcf -o ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR.vcf -recalFile ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR_SNPs_recalibrate_INDELs -tranchesFile ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR_SNPs_tranches_INDELs --ts_filter_level ${SENSITIVITY} -mode INDEL" > ${SUBSAMPLE_DIR}/commands/VQSR/VQSR_`basename ${OUT_DIR}`/`basename ${vcf} .vcf`.sh 
+	${JAVADIR}/java -Xmx10g -Djava.io.tmpdir=${SUBSAMPLE_DIR}/tmp -jar ${GATK_PATH}/GenomeAnalysisTK.jar -T ApplyRecalibration -R ${REF} -input ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR_SNPs_only.vcf -o ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR.vcf -recalFile ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR_SNPs_recalibrate_INDELs -tranchesFile ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR_SNPs_tranches_INDELs --ts_filter_level ${INDEL_SENSITIVITY} -mode INDEL" > ${SUBSAMPLE_DIR}/commands/VQSR/VQSR_`basename ${OUT_DIR}`/`basename ${vcf} .vcf`.sh 
 
 	#CREATE JOBLIST FOR BLUE WATERS ANISIMOV SCHEDULER
 	echo "${SUBSAMPLE_DIR}/commands/VQSR/VQSR_`basename ${OUT_DIR}` `basename ${vcf} .vcf`.sh" >> ${BATCH_DIR}/VQSR_`basename ${OUT_DIR}`_joblist_for_aprun
