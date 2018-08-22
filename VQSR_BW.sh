@@ -68,7 +68,7 @@ echo "#!/bin/bash
 
 #PBS -A baib
 #PBS -l nodes=${NODES}:ppn=32:xe
-#PBS -l walltime=2:00:00
+#PBS -l walltime=24:00:00
 #PBS -N VQSR_${1}_`basename ${BATCH_DIR}`_`basename ${OUT_DIR}`
 #PBS -o ${BATCH_DIR}/VQSR_`basename ${OUT_DIR}`.stdout
 #PBS -e ${BATCH_DIR}/VQSR_`basename ${OUT_DIR}`.stderr
