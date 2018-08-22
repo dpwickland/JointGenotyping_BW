@@ -51,7 +51,7 @@ VQSR consists of two commands, VariantRecalibrator and ApplyRecalibration. Varia
 ApplyRecalibration applies the model to each variant in the data. This command creates "tranches," or partitions based on the confidence of each site's variant call. The specificity threshold given to this command determines the level of filtering. All variants in the input VCF appear in the output VCF, but only those that meet the confidence cutoff contain the "PASS" designation in the INFO column; for sites falling below this cutoff (i.e. false positives), the VCF lists the tranche to which they belong.
 
 The syntax to run **VQSR_BW.sh** is  
-*bash VQSR_BW.sh \<reference assembly to use: hg19 or hg38> <sensitivity level for SNPs> <sensitivity level for INDELs> <GenotypeGVCFs final VCF directory for batch (must quote if wildcards used>* 
+*bash VQSR_BW.sh \<reference assembly to use: hg19 or hg38> \<sensitivity level for SNPs> \<sensitivity level for INDELs> \<GenotypeGVCFs final VCF directory for batch (must quote if wildcards used>* 
 
 For example:
 
