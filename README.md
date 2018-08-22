@@ -55,6 +55,7 @@ The syntax to run **VQSR_BW.sh** is
 
 For example:
 
+
 ```
 bash VQSR_BW.sh hg19 99.5 99 "/scratch/sciteam/jacobrh/purge_exempt/ADSP_VarCallResults/ADSP_JointGenotyping/hg19/BWA-GATK_HC_defaults/Randomized_Subsamplings/BatchSize50/Subsample*_BWA/final_VCF/GenotypeGVCFs-defaults"  
 ```
