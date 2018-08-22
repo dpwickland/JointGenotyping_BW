@@ -41,10 +41,10 @@ for vcf in $VCF_PATH/*.vcf; do
 	mkdir -p $SUBSAMPLE_DIR/commands/VQSR/VQSR_`basename ${OUT_DIR}`
 	BATCH_DIR=`dirname ${SUBSAMPLE_DIR}`
 	
-	#desired truth sensitivty / threshold value for each tranche: 100,99.9,99,90
+	#desired truth sensitivity / threshold value for each tranche: 100,99.9,99,90
 
 	###FOR SNPS###
-	echo "${JAVADIR}/java -Xmx10g -Djava.io.tmpdir=${SUBSAMPLE_DIR}/tmp -jar ${GATK_PATH}/GenomeAnalysisTK.jar -T VariantRecalibrator -R ${REF} -input $vcf -tranche 100.0 -tranche 99.9 -tranche 99.0 -tranche 90.0 -mode SNP -an QD -an MQ -an MQRankSum -an ReadPosRankSum -an FS -an SOR -an InbreedingCoeff -resource:hapmap,VCF,known=false,training=true,truth=true,prior=15.0 ${HAPMAP} -resource:omni,known=false,training=true,truth=true,prior=12.0 ${OMNI} -resource:1000G,known=false,training=true,truth=false,prior=10.0 ${G1000} -resource:dbsnp,known=true,training=false,truth=false,prior=2.0 ${DBSNP} -recalFile ${OUT_DIR}/`basename ${vcf} .vcf`_recalibrate_SNPs -tranchesFile ${OUT_DIR}/`basename ${vcf} .vcf`_tranches_SNPs -rscriptFile ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR_SNPs_only.plots.R --disable_auto_index_creation_and_locking_when_reading_rods
+	echo "${JAVADIR}/java -Xmx10g -Djava.io.tmpdir=${SUBSAMPLE_DIR}/tmp -jar ${GATK_PATH}/GenomeAnalysisTK.jar -T VariantRecalibrator -R ${REF} -input $vcf -tranche 100.0 -tranche 99.9 -tranche 99.0 -tranche 90.0 -mode SNP -an QD -an MQ -an MQRankSum -an ReadPosRankSum -an FS -an SOR -an InbreedingCoeff -resource:hapmap,VCF,known=false,training=true,truth=true,prior=15.0 ${HAPMAP} -resource:omni,known=false,training=true,truth=true,prior=12.0 ${OMNI} -resource:1000G,known=false,training=true,truth=false,prior=10.0 ${G1000} -resource:dbsnp,known=true,training=false,truth=false,prior=2.0 ${DBSNP} -recalFile ${OUT_DIR}/`basename ${vcf} .vcf`_recalibrate_SNPs -tranchesFile ${OUT_DIR}/`basename ${vcf} .vcf`_tranches_SNPs -rscriptFile ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR_SNPs_only.plots.R --disable_auto_index_creation_and_locking_when_reading_rods --target_titv 3.2
 	
 	${JAVADIR}/java -Xmx10g -Djava.io.tmpdir=${SUBSAMPLE_DIR}/tmp -jar ${GATK_PATH}/GenomeAnalysisTK.jar -T ApplyRecalibration -R ${REF} -input $vcf -o ${OUT_DIR}/`basename ${vcf} .vcf`_VQSR_SNPs_only.vcf  -nt 5 -recalFile ${OUT_DIR}/`basename ${vcf} .vcf`_recalibrate_SNPs -tranchesFile ${OUT_DIR}/`basename ${vcf} .vcf`_tranches_SNPs --ts_filter_level ${SNP_SENSITIVITY} -mode SNP	
 
