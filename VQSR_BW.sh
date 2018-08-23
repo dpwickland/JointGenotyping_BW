@@ -30,7 +30,6 @@ SNP_SENSITIVITY=$2
 INDEL_SENSITIVITY=$3
 VCF_PATH=$4
 
-mkdir ${OUT_DIR}/VQSR_files
 
 ################ VQSR SECTION ################
 
@@ -39,6 +38,7 @@ VQSR_commands=0
 for vcf in $VCF_PATH/*.vcf; do
 
 	OUT_DIR=`dirname ${vcf}`
+	mkdir ${OUT_DIR}/VQSR_files
 	SUBSAMPLE_DIR=$(dirname `dirname ${OUT_DIR}`)
 	mkdir -p $SUBSAMPLE_DIR/commands/VQSR/VQSR_`basename ${OUT_DIR}`
 	BATCH_DIR=`dirname ${SUBSAMPLE_DIR}`
