@@ -35,8 +35,8 @@ CombineGVCFs_commands=0
 for file in $OUT_DIR/commands/CombineGVCFs/*.sh; do  CombineGVCFs_commands=$((${CombineGVCFs_commands} + 1)); echo $OUT_DIR/commands/CombineGVCFs/ `basename ${file}` >> $OUT_DIR/aprun_joblists/CombineGVCFs_joblist_for_aprun;done;
 
 CMNDS_PER_NODE=4
-NODES=$(((${GenotypeGVCFs_commands} + ${CMNDS_PER_NODE})/${CMNDS_PER_NODE})) 
-n_for_aprun=$((${GenotypeGVCFs_commands} + 1))
+NODES=$(((${CombineGVCFs_commands} + ${CMNDS_PER_NODE})/${CMNDS_PER_NODE})) 
+n_for_aprun=$((${CombineGVCFs_commands} + 1))
 
 ###CREATE APRUN SCRIPT FOR BLUE WATERS ANISIMOV SCHEDULER
 echo "#!/bin/bash
